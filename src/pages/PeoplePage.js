@@ -1,9 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import axios from 'axios';
-import PeopleList from '../component/PeopleList'
-
-
+import PeoppleList from '../component/PeopleList'
 
 export default class PeoplePage extends React.Component{
   constructor(props){
@@ -12,10 +10,10 @@ export default class PeoplePage extends React.Component{
       peoples: []
     }
   }
- //http://demo5410349.mockable.io/pessoas/?nat=br&results=10
+ 
   componentDidMount(){
     axios
-    .get('https://randomuser.me/api/?nat=br&results=10')
+    .get('https://randomuser.me/api/?nat=br&results=20')
     .then(response => {
       const {results} = response.data
       this.setState({
@@ -26,12 +24,14 @@ export default class PeoplePage extends React.Component{
  
   render(){
     return (
-        <View>
-            <PeopleList peoples={this.state.peoples}
-            onPressItem={() => {
-              this.props.navigation.navigate('Detalhe da Pessoa')
-              }} /> 
-        </View>
+      <View>
+        <PeoppleList peoples={this.state.peoples} 
+                     onPressItem={ (people) => {
+                         this.props.navigation.navigate('Detalhe da Pessoa',
+                         {"people": people})
+                     }}
+        />
+      </View>
     );
   }
  
